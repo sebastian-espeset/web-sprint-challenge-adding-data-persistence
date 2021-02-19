@@ -7,6 +7,13 @@ const router = express.Router();
 router.get('/', async (req,res)=>{
     try{
         const data = await Projects.get()
+        data.map((project)=>{
+            if(project.project_completed === 0){
+                return project.project_completed = false
+            } else{
+                return project.project_completed = true
+            }
+        })
         res.status(200).json(data)
     }catch(error){
         res.status(400).json(error.message)
